@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import "./LoginForm.css";
+import "./SignupForm.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-function LoginForm() {
+function SignupForm() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -21,15 +27,14 @@ function LoginForm() {
     // You can perform authentication logic here with the email and password values.
     // For simplicity, we're just logging the values to the console.
     axios
-      .post("/login", { email, password })
+      .post("/register", { name, email, password })
       .then((result) => {
-        if (result.data === "logged in") {
-          console.log(`navigate`);
-          navigate("/");
-        }
+        navigate("/login");
         console.log(result);
       })
       .catch((err) => console.log(err));
+
+    console.log("name:", name);
     console.log("Email:", email);
     console.log("Password:", password);
   };
@@ -37,8 +42,18 @@ function LoginForm() {
   return (
     <div className="main">
       <div className="container">
-        <h2>Login</h2>
+        <h2>Sign up</h2>
         <form onSubmit={handleSubmit}>
+          <div className="name">
+            <label htmlFor="text">Name: </label>
+            <input
+              type="text"
+              id="text"
+              value={name}
+              onChange={handleNameChange}
+              placeholder="enter your name"
+            />
+          </div>
           <div className="email">
             <label htmlFor="email">Email: </label>
             <input
@@ -47,7 +62,6 @@ function LoginForm() {
               value={email}
               onChange={handleEmailChange}
               placeholder="enter your mail"
-              required
             />
           </div>
           <div className="password">
@@ -58,13 +72,15 @@ function LoginForm() {
               value={password}
               onChange={handlePasswordChange}
               placeholder="enter your password"
-              required
             />
           </div>
           <div>
             <button type="submit" className="btn">
-              Log In
+              Sign up
             </button>
+            <Link to="/login">
+              <h5>Already registered login</h5>
+            </Link>
           </div>
         </form>
       </div>
@@ -72,4 +88,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default SignupForm;

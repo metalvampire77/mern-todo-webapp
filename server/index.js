@@ -49,12 +49,18 @@ app.post('/',(req,res) => {
     res.json(`home page`)
 })
 
+app.post('/LandingPage',(req,res) => {
+    res.json(`LandingPage`)
+})
+
 app.post('/login',(req,res) => {
     const {email,password} = req.body
     UserModel.findOne({email})
     .then((user) => {
         if(user){
-            if(user.password === password) res.json(`logged in`)
+            if(user.password === password){
+                res.json({ message: 'Logged in', name: user.name })
+            } 
             else res.json(`wrong password`)
         }
         else res.json(`user not found`)
