@@ -7,7 +7,7 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "npm install & concurrently \"npm run server\" \"npm run client\"",
     "server": "cd server && npm install && npm start", 
     "client": "cd client && npm install && npm run dev" 
   }
