@@ -3,11 +3,15 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const UserModel = require('./models/UserModel')
 const path = require('path')
+const dotenv = require('dotenv')
 
 const app = express()
 
 app.use(express.json())
 app.use(cors())
+
+dotenv.config()
+const PORT = process.env.PORT || 5000
 
 mongoose.connect('mongodb+srv://metalvampire77:SVC2rYnPkv5CQSRa@cluster0.qhrablv.mongodb.net/?retryWrites=true&w=majority',{
     useNewUrlParser: true,
@@ -37,7 +41,7 @@ app.get('*', (req, res) => {
 
 
 
-app.listen(5000,() => {
+app.listen(PORT,() => {
     console.log(`server is running on port 5000`)
 })
 
