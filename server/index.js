@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const UserModel = require('./models/UserModel')
+const path = require('path')
 
 const app = express()
 
@@ -25,6 +26,14 @@ const db = mongoose.connection
 //     console.log('Database name:', databaseName);
 // });
 
+// Serve the React application
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+
+// For any other route, serve the React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+});
 
 
 
