@@ -1,0 +1,40 @@
+.main{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    margin: 50px 400px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: antiquewhite;
+    border-radius: 20px;
+}
+
+@media(max-width: 1100px){
+    .container{
+        margin: 50px 20%;
+    }
+}
+
+.email{
+    margin-bottom: 20px;
+}
+
+.password{
+    margin-bottom: 20px;
+}
+
+.btn{
+    padding: 5px 17px;
+    border-radius: 10px;
+    background-color: rgb(64, 64, 230);
+    cursor: pointer;
+    border: none;
+    color: aliceblue;
+    font-weight: bold;
+}
