@@ -23,8 +23,11 @@ function LoginForm() {
     axios
       .post("/login", { email, password })
       .then((result) => {
+        if (result.data === "logged in") {
+          console.log(`navigate`);
+          navigate("/");
+        }
         console.log(result);
-        navigate("/");
       })
       .catch((err) => console.log(err));
     console.log("Email:", email);
