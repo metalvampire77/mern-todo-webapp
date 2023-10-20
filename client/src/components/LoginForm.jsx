@@ -21,7 +21,7 @@ function LoginForm() {
     // You can perform authentication logic here with the email and password values.
     // For simplicity, we're just logging the values to the console.
     axios
-      .post("http://localhost:5000/login", { email, password })
+      .post("http://127.0.0.1:5000/login", { email, password })
       .then((result) => {
         console.log(result);
         navigate("/");
