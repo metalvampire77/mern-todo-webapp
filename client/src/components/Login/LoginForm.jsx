@@ -27,7 +27,7 @@ function LoginForm() {
         const { message, name } = result.data;
         if (message === "Logged in") {
           console.log(message, name);
-          navigate("/LandingPage");
+          //navigate("/LandingPage");
           navigate(`/LandingPage?name=${name}`);
         } else if (message === "Wrong password") {
           alert("Wrong password");
