@@ -6,6 +6,12 @@ const UserSchema = new mongoose.Schema({
     password: String
 })
 
-const UserModel = new mongoose.model('users',UserSchema)
+const TodosSchema = new mongoose.Schema({
+    todo: String,
+    user_id: String
+})
 
-module.exports = UserModel
+const UserModel = new mongoose.model('users',UserSchema)
+const TodoModel = new mongoose.model('todos',TodosSchema)
+
+module.exports = UserModel,TodoModel

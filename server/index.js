@@ -4,11 +4,14 @@ const mongoose = require('mongoose')
 const UserModel = require('./models/UserModel')
 const path = require('path')
 const dotenv = require('dotenv')
+const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
 
 const app = express()
 
 app.use(express.json())
 app.use(cors())
+app.use(cookieParser())
 
 dotenv.config()
 const PORT = process.env.PORT || 5000
@@ -30,6 +33,11 @@ const db = mongoose.connection
 //     console.log('Database name:', databaseName);
 // });
 
+
+app.get('/Todos',(req,res) => {
+    res.json(`Todos page`)
+})
+
 // Serve the React application
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
@@ -49,17 +57,14 @@ app.post('/',(req,res) => {
     res.json(`home page`)
 })
 
-app.post('/LandingPage',(req,res) => {
-    res.json(`LandingPage`)
-})
-
 app.post('/login',(req,res) => {
     const {email,password} = req.body
     UserModel.findOne({email})
     .then((user) => {
         if(user){
             if(user.password === password){
-                res.json({ message: 'Logged in', name: user.name })
+                const token = jwt.sign()
+                res.json({ message: 'Logged in', email: user.email })
             } 
             else res.json(`wrong password`)
         }

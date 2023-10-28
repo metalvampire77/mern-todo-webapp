@@ -24,11 +24,11 @@ function LoginForm() {
     axios
       .post("/login", { email, password })
       .then((result) => {
-        const { message, name } = result.data;
+        const { message, email } = result.data;
         if (message === "Logged in") {
-          console.log(message, name);
+          console.log(message, email);
           //navigate("/LandingPage");
-          navigate(`/LandingPage?name=${name}`);
+          navigate(`/Todos`);
         } else if (message === "Wrong password") {
           alert("Wrong password");
         } else {
