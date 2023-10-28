@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const UserModel = require("./models/UserModel");
+const TodoModel = require("./models/TodoModel");
 const path = require("path");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
@@ -13,7 +14,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: ["http://localhost:5173"],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
   })
 );
@@ -44,18 +45,6 @@ const db = mongoose.connection;
 //     console.log('Database name:', databaseName);
 // });
 
-app.get("/Todos", (req, res) => {
-  res.json(`Todos page`);
-});
-
-// // Serve the React application
-// app.use(express.static(path.join(__dirname, "../client/dist")));
-
-// // For any other route, serve the React app
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
-// });
-
 app.listen(PORT, () => {
   console.log(`server is running on port 5000`);
 });
@@ -64,19 +53,37 @@ app.post("/", (req, res) => {
   res.json(`home page`);
 });
 
+const options = { expiresIn: "1hr" };
+
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
   UserModel.findOne({ email }).then((user) => {
     if (user) {
       if (user.password === password) {
-        const token = jwt.sign({ email: user.email }, secret, {
-          expiresIn: "29d",
-        });
-        res.cookie("token", token);
-        res.json({ message: "success" });
+        const token = jwt.sign(
+          { id: user._id, email: user.email },
+          secret,
+          options
+        );
+        // Include the user ID in the response
+        res.json({ message: "success", user_id: user._id, token });
       } else res.json(`wrong password`);
     } else res.json(`user not found`);
   });
+});
+
+app.post("/todos", (req, res) => {
+  const { todo, user_id } = req.body;
+  TodoModel.create({ todo, user_id }).then(() => res.json(req.body));
+});
+
+app.get("/get", (req, res) => {
+  const user_id = req.query.user_id;
+  TodoModel.find({ user_id })
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => res.json(err));
 });
 
 app.post("/register", (req, res) => {
@@ -89,4 +96,31 @@ app.post("/register", (req, res) => {
       }
     })
     .catch((err) => res.json(err));
+});
+
+app.put("/update/:id", (req, res) => {
+  const { id } = req.params;
+  const { done } = req.body;
+  TodoModel.findByIdAndUpdate({ _id: id }, { done: !done }, { new: true })
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => res.json(err));
+});
+
+app.delete("/delete/:id", (req, res) => {
+  const { id } = req.params;
+  TodoModel.findByIdAndDelete({ _id: id })
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => res.json(err));
+});
+
+// Serve the React application
+app.use(express.static(path.join(__dirname, "../client/dist")));
+
+// For any other route, serve the React app
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
 });
