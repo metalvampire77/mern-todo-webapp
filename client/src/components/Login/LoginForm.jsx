@@ -17,15 +17,17 @@ function LoginForm() {
     setPassword(e.target.value);
   };
 
+  axios.defaults.withCredentials = true;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // You can perform authentication logic here with the email and password values.
     // For simplicity, we're just logging the values to the console.
     axios
-      .post("/login", { email, password })
+      .post("http://127.0.0.1:5000/login", { email, password })
       .then((result) => {
         const { message, email } = result.data;
-        if (message === "Logged in") {
+        if (message === "success") {
           console.log(message, email);
           //navigate("/LandingPage");
           navigate(`/Todos`);

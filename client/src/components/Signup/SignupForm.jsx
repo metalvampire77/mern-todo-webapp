@@ -27,7 +27,7 @@ function SignupForm() {
     // You can perform authentication logic here with the email and password values.
     // For simplicity, we're just logging the values to the console.
     axios
-      .post("/register", { name, email, password })
+      .post("http://127.0.0.1:5000/register", { name, email, password })
       .then((result) => {
         navigate("/login");
         console.log(result);
