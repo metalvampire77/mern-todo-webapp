@@ -1,10 +1,12 @@
 import { useState, useRef } from "react";
 import axios from "axios";
-import "../app.css";
+import styles from "../app.module.css";
 
 function CreateTodo() {
   const [todo, setTodo] = useState("");
   const textBoxRef = useRef(null);
+
+  const url = "http://127.0.0.1:5000";
 
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -23,15 +25,15 @@ function CreateTodo() {
   };
 
   return (
-    <div className="todo">
+    <div className={styles.todo}>
       <input
         type="text"
-        className="textBox"
+        className={styles.textBox}
         placeholder="enter todo"
         ref={textBoxRef}
         onChange={(e) => setTodo(e.target.value)}
       ></input>
-      <button className="addBtn" onClick={handleSubmit}>
+      <button className={styles.addBtn} onClick={handleSubmit}>
         add
       </button>
     </div>

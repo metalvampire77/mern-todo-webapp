@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import "./LoginForm.css";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import styles from "./LoginForm.module.css";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  const url = "http://127.0.0.1:5000";
 
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
@@ -51,11 +53,11 @@ function LoginForm() {
   };
 
   return (
-    <div className="main">
-      <div className="container">
+    <div className={styles.main}>
+      <div className={styles.container}>
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
-          <div className="email">
+          <div className={styles.email}>
             <label htmlFor="email">Email: </label>
             <input
               type="email"
@@ -66,7 +68,7 @@ function LoginForm() {
               required
             />
           </div>
-          <div className="password">
+          <div className={styles.password}>
             <label htmlFor="password">Password: </label>
             <input
               type="password"
@@ -78,7 +80,7 @@ function LoginForm() {
             />
           </div>
           <div>
-            <button type="submit" className="btn">
+            <button type="submit" className={styles.btn}>
               Log In
             </button>
             <Link to="/register">

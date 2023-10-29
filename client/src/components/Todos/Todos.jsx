@@ -3,10 +3,13 @@ import axios from "axios";
 import CreateTodo from "../CreateTodo/CreateTodo";
 import { useNavigate } from "react-router-dom";
 import bin from "/src/assets/delete.png";
+import styles from "../app.module.css";
 
 export function Todos() {
   const [todos, setTodos] = useState([]);
   const navigate = useNavigate();
+
+  const url = "http://127.0.0.1:5000";
 
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -44,12 +47,12 @@ export function Todos() {
   };
 
   return (
-    <div className="main">
-      <div className="container">
-        <div className="heading">
+    <div className={styles.main}>
+      <div className={styles.container}>
+        <div className={styles.heading}>
           <h1>To-do list</h1>
           <button
-            className="logout-btn"
+            className={styles.logoutBtn}
             onClick={() => {
               localStorage.removeItem("userInfo");
               navigate("/login");
@@ -65,18 +68,18 @@ export function Todos() {
           </div>
         ) : (
           todos.map((todo) => (
-            <div className="items" key={todo._id}>
+            <div className={styles.items} key={todo._id}>
               <p
-                className={todo.done ? "lineThrough" : "none"}
+                className={todo.done ? styles.lineThrough : styles.none}
                 onClick={() => completeTodo(todo._id, todo.done)}
               >
                 {/* <input type="checkbox"></input> */}
-                <label className="todo-text">{todo.todo}</label>
+                <label className={styles.todoText}>{todo.todo}</label>
               </p>
               <img
                 src={bin}
                 alt=""
-                className="delete-img"
+                className={styles.deleteImg}
                 onClick={() => deleteTodo(todo._id)}
               />
             </div>

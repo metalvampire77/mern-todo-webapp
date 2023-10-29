@@ -1,14 +1,25 @@
-import React, { useState } from "react";
-import "./SignupForm.css";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import styles from "./SignupForm.module.css";
 
 function SignupForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  const url = "http://127.0.0.1:5000";
+
+  useEffect(() => {
+    const userInfo = localStorage.getItem("userInfo");
+    if (userInfo) {
+      navigate("/todos");
+      // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      // console.log(userInfo.id);
+    }
+  }, [history]);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -42,11 +53,11 @@ function SignupForm() {
   };
 
   return (
-    <div className="main">
-      <div className="container">
+    <div className={styles.main}>
+      <div className={styles.container}>
         <h2>Sign up</h2>
         <form onSubmit={handleSubmit}>
-          <div className="name">
+          <div className={styles.name}>
             <label htmlFor="text">Name: </label>
             <input
               type="text"
@@ -56,7 +67,7 @@ function SignupForm() {
               placeholder="enter your name"
             />
           </div>
-          <div className="email">
+          <div className={styles.email}>
             <label htmlFor="email">Email: </label>
             <input
               type="email"
@@ -66,7 +77,7 @@ function SignupForm() {
               placeholder="enter your mail"
             />
           </div>
-          <div className="password">
+          <div className={styles.password}>
             <label htmlFor="password">Password: </label>
             <input
               type="password"
@@ -77,7 +88,7 @@ function SignupForm() {
             />
           </div>
           <div>
-            <button type="submit" className="btn">
+            <button type="submit" className={styles.btn}>
               Sign up
             </button>
             <Link to="/login">
