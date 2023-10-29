@@ -6,12 +6,17 @@ function Home() {
     <>
       <div className={styles.main}>
         <div className={styles.container}>
-          <Link to="/login">
-            <button className={styles.loginBtn}>Login</button>
-          </Link>
-          <Link to="/register">
-            <button className={styles.registerBtn}>Sign up</button>
-          </Link>
+          <div className={styles.content}>
+            <h1 className={styles.quote}>Get things done with Todo</h1>
+            <div className={styles.buttons}>
+              <Link to="/login">
+                <button className={styles.loginBtn}>Login</button>
+              </Link>
+              <Link to="/register">
+                <button className={styles.registerBtn}>Sign up</button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </>
