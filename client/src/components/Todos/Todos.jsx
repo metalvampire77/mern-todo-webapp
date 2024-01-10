@@ -52,6 +52,14 @@ export function Todos() {
         <div className={styles.heading}>
           <h1>To-do list</h1>
           <button
+            className={styles.contactUsBtn}
+            onClick={() => {
+              navigate("/contactus");
+            }}
+          >
+            contact us
+          </button>
+          <button
             className={styles.logoutBtn}
             onClick={() => {
               localStorage.removeItem("userInfo");

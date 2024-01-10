@@ -7,6 +7,7 @@ const path = require("path");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const emailRoutes = require("./routes/emailRoutes");
 
 const app = express();
 
@@ -98,6 +99,18 @@ app.post("/register", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+app.post("/contactus", (req, res) => {
+  const { email } = req.body;
+  UserModel.findOne({ email })
+    .then((user) => {
+      if (user) res.json(`user already present`);
+      else {
+        UserModel.create(req.body).then((user) => res.json(user));
+      }
+    })
+    .catch((err) => res.json(err));
+});
+
 app.put("/update/:id", (req, res) => {
   const { id } = req.params;
   const { done } = req.body;
@@ -116,6 +129,8 @@ app.delete("/delete/:id", (req, res) => {
     })
     .catch((err) => res.json(err));
 });
+
+app.use("/email", emailRoutes);
 
 // Serve the React application
 app.use(express.static(path.join(__dirname, "../client/dist")));

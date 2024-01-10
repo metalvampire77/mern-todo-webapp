@@ -1,0 +1,42 @@
+/* styles.css */
+
+.container {
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  background-color: #ccc;
+}
+
+.form-group {
+  margin-bottom: 1px; /* Add space between form groups */
+}
+
+label {
+  display: block; /* Ensures labels are on their own line */
+  margin-bottom: 10px; /* Add space below labels */
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px; /* Add space below input fields */
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Add additional styling as needed */
