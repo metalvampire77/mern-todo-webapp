@@ -20,7 +20,7 @@ const ContactUs = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/email/sendEmail", {
+      const response = await fetch("/email/sendEmail", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
